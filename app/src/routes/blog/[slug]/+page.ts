@@ -1,6 +1,5 @@
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
-    console.log(params.slug);
     const response = await fetch("http://localhost:8055/graphql", {
         method: "POST",
         headers: {
@@ -10,9 +9,10 @@ export async function load({ params }) {
             query: `
                 query {
 	               post: post_by_id(id: "${params.slug}") {
-                      id
-		              title
+                      title
                       body
+                      date_created
+                      banner
 	               }
                 }
             `
