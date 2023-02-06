@@ -27,13 +27,13 @@ collections:
         CREATE TABLE "post" (`id` char(36) NOT NULL, `status` varchar(255) NOT
         NULL DEFAULT 'draft', `sort` integer NULL, `user_created` char(36) NULL,
         `date_created` datetime NULL, `user_updated` char(36) NULL,
-        `date_updated` datetime NULL, `body` text NULL, `title` varchar(255)
-        NULL, `banner` char(36) NULL, PRIMARY KEY (`id`), CONSTRAINT
-        `post_user_created_foreign` FOREIGN KEY (`user_created`) REFERENCES
-        `directus_users` (`id`), CONSTRAINT `post_user_updated_foreign` FOREIGN
-        KEY (`user_updated`) REFERENCES `directus_users` (`id`), CONSTRAINT
-        `post_banner_foreign` FOREIGN KEY (`banner`) REFERENCES `directus_files`
-        (`id`) ON DELETE SET NULL)
+        `date_updated` datetime NULL, `body` text NOT NULL DEFAULT null, `title`
+        varchar(255) NOT NULL DEFAULT null, `banner` char(36) NULL, PRIMARY KEY
+        (`id`), CONSTRAINT `post_user_created_foreign` FOREIGN KEY
+        (`user_created`) REFERENCES `directus_users` (`id`), CONSTRAINT
+        `post_user_updated_foreign` FOREIGN KEY (`user_updated`) REFERENCES
+        `directus_users` (`id`), CONSTRAINT `post_banner_foreign` FOREIGN KEY
+        (`banner`) REFERENCES `directus_files` (`id`) ON DELETE SET NULL)
 fields:
   - collection: post
     field: banner
@@ -47,7 +47,9 @@ fields:
       hidden: false
       interface: file-image
       note: null
-      options: null
+      options:
+        crop: false
+        folder: 4beb821d-26b2-43c1-b82a-fcc9fa1b39f4
       readonly: false
       required: false
       sort: null
@@ -91,17 +93,15 @@ fields:
           - blockquote
           - bold
           - bullist
-          - code
           - customImage
           - customLink
-          - customMedia
           - fullscreen
           - h2
           - h3
-          - hr
           - italic
           - numlist
           - removeformat
+          - strikethrough
           - table
           - underline
           - unlink
@@ -121,7 +121,7 @@ fields:
       generation_expression: null
       has_auto_increment: false
       is_generated: false
-      is_nullable: true
+      is_nullable: false
       is_primary_key: false
       is_unique: false
       max_length: null
@@ -377,7 +377,7 @@ fields:
       generation_expression: null
       has_auto_increment: false
       is_generated: false
-      is_nullable: true
+      is_nullable: false
       is_primary_key: false
       is_unique: false
       max_length: 255
