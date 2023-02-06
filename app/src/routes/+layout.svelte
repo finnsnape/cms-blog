@@ -4,6 +4,15 @@
   import Footer from "$lib/components/general/Footer.svelte";
 </script>
 
+<style lang="scss">
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
 <Header />
-<slot />
+<div class="container">
+    <slot />
+</div>
 <Footer />
